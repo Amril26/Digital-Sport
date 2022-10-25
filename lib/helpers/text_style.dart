@@ -1,7 +1,7 @@
 import 'package:digital_sport/helpers/color_style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+/// class ini digunakan untuk style default yang digunakan pada text fonts style yang akan digunakan pada aplikasi
 class FontStyle {
   static TextStyle h1 = GoogleFonts.beVietnamPro(
     fontSize: 18,

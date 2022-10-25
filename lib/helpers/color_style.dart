@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// color APp adalah class dimana untuk menampung color themes yang akan digunakan untuk color aplikasi
 class ColorApp {
   static Color colorPrimary = const Color(0XFF088543);
   static Color colorSecondary1 = const Color(0XFFFCF302);

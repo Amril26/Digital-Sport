@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       initialRoute: SplashPage.rootNamed,
       routes: {
         SplashPage.rootNamed: (context) => const SplashPage(),
-        LoginPage.rootNamed: (context) => const LoginPage(),
+        LoginPage.rootNamed: (context) => LoginPage(),
       },
     );
   }

@@ -30,12 +30,12 @@ class _SplashPageState extends State<SplashPage> {
             const Spacer(),
             Image.asset(
               'assets/logoes/logo_persebaya.png',
-              height: 125,
+              height: 110,
             ),
             const Spacer(),
             Text(
               'Digital Sport',
-              style: FontStyle.h1.copyWith(
+              style: TextSetting.h2.copyWith(
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
               ),

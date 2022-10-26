@@ -1,5 +1,6 @@
 import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
+import 'package:digital_sport/pages/auth/register_page.dart';
 import 'package:digital_sport/pages/auth/widgets/widget_form.dart';
 import 'package:digital_sport/pages/auth/widgets/widget_headers.dart';
 import 'package:digital_sport/widgets/widget_button_primary.dart';
@@ -7,7 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
-  static String rootNamed = '/login';
+  static String rootNamed = 'login/';
   LoginPage({Key? key}) : super(key: key);
 
   final TextEditingController _controllerEmail = TextEditingController();
@@ -87,7 +88,8 @@ class LoginPage extends StatelessWidget {
                               letterSpacing: 1),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              // TODO:Tab navigation Daftar
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  RegisterPage.rootNamed, (route) => false);
                             },
                         )
                       ],

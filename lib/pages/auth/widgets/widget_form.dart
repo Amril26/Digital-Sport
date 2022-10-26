@@ -41,7 +41,7 @@ class WidgetForm extends StatelessWidget {
             hintStyle: TextSetting.p2.copyWith(
               fontWeight: FontWeight.w200,
               letterSpacing: 2,
-              color: Colors.white,
+              color: Colors.grey.withOpacity(0.7),
             ),
           ),
         )

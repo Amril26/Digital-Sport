@@ -1,4 +1,5 @@
 import 'package:digital_sport/pages/auth/login_page.dart';
+import 'package:digital_sport/pages/auth/register_page.dart';
 import 'package:digital_sport/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         SplashPage.rootNamed: (context) => const SplashPage(),
         LoginPage.rootNamed: (context) => LoginPage(),
+        RegisterPage.rootNamed: (context) => RegisterPage(),
       },
     );
   }

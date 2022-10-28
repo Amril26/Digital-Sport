@@ -4,6 +4,7 @@ import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
 import 'package:digital_sport/pages/dashboard/widgets/card_category.dart';
 import 'package:digital_sport/pages/favorite/favorite_page.dart';
+import 'package:digital_sport/pages/ticket/ticket_page.dart';
 import 'package:digital_sport/widgets/widget_card_box.dart';
 import 'package:digital_sport/widgets/widget_card_horizontal.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class DashboardPage extends StatelessWidget {
     'assets/banner/banner4.png',
   ];
 
-  Widget _categoryButton() {
+  Widget _categoryButton(BuildContext context) {
     return Padding(
       padding: LayoutMargin.marginHorizontal20,
       child: Row(
@@ -27,6 +28,7 @@ class DashboardPage extends StatelessWidget {
           CardCategory(
             onTapCategory: () {
               //TODO :navigation ke category
+              Navigator.pushNamed(context, TicketPage.rootNamed);
             },
             title: 'Tiket',
             pathAssets: 'assets/icons/ticket-2.png',
@@ -240,10 +242,7 @@ class DashboardPage extends StatelessWidget {
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: <Widget>[
-          _categoryButton(),
-          Row(
-            children: [],
-          ),
+          _categoryButton(context),
           const SizedBox(
             height: 16,
           ),

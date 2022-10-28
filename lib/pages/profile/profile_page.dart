@@ -107,7 +107,9 @@ class ProfilePage extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 10),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(4), color: ColorApp.colorPrimary),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: ColorApp.colorPrimary),
             child: Text(
               'Anggota Aktif',
               style: TextSetting.p2
@@ -225,6 +227,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: ListView(
         padding: EdgeInsets.zero,
         children: [

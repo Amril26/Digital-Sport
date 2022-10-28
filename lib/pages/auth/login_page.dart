@@ -3,6 +3,7 @@ import 'package:digital_sport/helpers/text_style.dart';
 import 'package:digital_sport/pages/auth/register_page.dart';
 import 'package:digital_sport/pages/auth/widgets/widget_form.dart';
 import 'package:digital_sport/pages/auth/widgets/widget_headers.dart';
+import 'package:digital_sport/pages/current_index_pages.dart';
 import 'package:digital_sport/widgets/widget_button_primary.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class LoginPage extends StatelessWidget {
                   ButtonPrimary(
                       text: 'Masuk Akun',
                       onTap: () {
-                        // TODO button Login Masuk akunF
+                        Navigator.pushReplacementNamed(context, CurrentIndexPage.rootNamed);
                       }),
                   const SizedBox(
                     height: 20,

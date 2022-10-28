@@ -3,6 +3,7 @@ import 'package:digital_sport/helpers/text_style.dart';
 import 'package:digital_sport/pages/auth/login_page.dart';
 import 'package:digital_sport/pages/auth/widgets/widget_form.dart';
 import 'package:digital_sport/pages/auth/widgets/widget_headers.dart';
+import 'package:digital_sport/pages/current_index_pages.dart';
 import 'package:digital_sport/widgets/widget_button_primary.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -75,9 +76,10 @@ class RegisterPage extends StatelessWidget {
                   ),
                   //  NOTE: Bottom Navigation Action
                   ButtonPrimary(
-                      text: 'Masuk Akun',
+                      text: 'Daftar Akun',
                       onTap: () {
-                        // TODO button daftar Masuk akunF
+                        Navigator.pushNamed(
+                            context, CurrentIndexPage.rootNamed);
                       }),
                   const SizedBox(
                     height: 20,

@@ -10,6 +10,7 @@ class TextSetting {
   ///color  dark
   static TextStyle h1 = GoogleFonts.beVietnamPro(
     fontSize: 18,
+    fontWeight: FontWeight.w500,
     color: ColorApp.txColorPrimary,
   );
 
@@ -40,7 +41,7 @@ class TextSetting {
     color: ColorApp.txColorsecondary2,
   );
 
-  ///fontSize 12
+  ///fontSize 10
   ///color  greysecondary2
   static TextStyle d1 = GoogleFonts.beVietnamPro(
     fontSize: 10,

@@ -2,6 +2,7 @@ import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
 import 'package:digital_sport/pages/dashboard/dashboard_page.dart';
 import 'package:digital_sport/pages/match/match_history_page.dart';
+import 'package:digital_sport/pages/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 
 class CurrentIndexPage extends StatefulWidget {
@@ -18,9 +19,7 @@ class _CurrentIndexPageState extends State<CurrentIndexPage> {
   final List<Widget> _pagesCurrent = [
     DashboardPage(),
     const MatchHistoryPage(),
-    Container(
-      color: Colors.blue,
-    )
+    const ProfilePage()
   ];
 
   @override

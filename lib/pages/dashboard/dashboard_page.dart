@@ -3,6 +3,7 @@ import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
 import 'package:digital_sport/pages/dashboard/widgets/card_category.dart';
+import 'package:digital_sport/pages/detail_product/detail_product_page.dart';
 import 'package:digital_sport/pages/favorite/favorite_page.dart';
 import 'package:digital_sport/pages/ticket/ticket_page.dart';
 import 'package:digital_sport/widgets/widget_card_box.dart';
@@ -262,7 +263,11 @@ class DashboardPage extends StatelessWidget {
               itemCount: 10,
               scrollDirection: Axis.horizontal,
               padding: LayoutMargin.marginHorizontal20,
-              itemBuilder: (context, index) => const WidgetCardBox(),
+              itemBuilder: (context, index) => WidgetCardBox(
+                onTap: () {
+                  Navigator.pushNamed(context, DetailProductPage.rootNamed);
+                },
+              ),
             ),
           ),
           const SizedBox(
@@ -280,7 +285,11 @@ class DashboardPage extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             padding: LayoutMargin.marginHorizontal20,
-            itemBuilder: (context, index) => const WidgetCardHorizontal(),
+            itemBuilder: (context, index) => WidgetCardHorizontal(
+              onTap: () {
+                Navigator.pushNamed(context, DetailProductPage.rootNamed);
+              },
+            ),
           ),
         ],
       ),

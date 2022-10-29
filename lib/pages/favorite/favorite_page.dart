@@ -1,6 +1,7 @@
 import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
+import 'package:digital_sport/pages/detail_product/detail_product_page.dart';
 import 'package:digital_sport/widgets/widget_card_horizontal.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,11 @@ class FavoritePage extends StatelessWidget {
       body: ListView.builder(
         padding: LayoutMargin.marginHorizontal20,
         itemCount: 10,
-        itemBuilder: (context, index) => WidgetCardHorizontal(),
+        itemBuilder: (context, index) => WidgetCardHorizontal(
+          onTap: () {
+            Navigator.pushNamed(context, DetailProductPage.rootNamed);
+          },
+        ),
       ),
     );
   }

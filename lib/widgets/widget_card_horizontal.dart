@@ -3,11 +3,13 @@ import 'package:digital_sport/helpers/text_style.dart';
 import 'package:flutter/material.dart';
 
 class WidgetCardHorizontal extends StatelessWidget {
-  const WidgetCardHorizontal({Key? key}) : super(key: key);
+  final Function() onTap;
+  const WidgetCardHorizontal({Key? key, required this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: onTap,
       child: SizedBox(
         height: MediaQuery.of(context).size.width * 0.3,
         child: Row(
@@ -83,7 +85,10 @@ class WidgetCardHorizontal extends StatelessWidget {
             ),
             InkWell(
               onTap: () {},
-              child: Icon(Icons.favorite, color: ColorApp.colorPrimary,),
+              child: Icon(
+                Icons.favorite,
+                color: ColorApp.colorPrimary,
+              ),
             ),
           ],
         ),

@@ -4,11 +4,13 @@ import 'package:digital_sport/helpers/text_style.dart';
 import 'package:flutter/material.dart';
 
 class WidgetCardBox extends StatelessWidget {
-  const WidgetCardBox({Key? key}) : super(key: key);
+  final Function() onTap;
+  const WidgetCardBox({Key? key, required this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: onTap,
       child: Container(
         margin: LayoutMargin.marginRight20.copyWith(right: 10),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),

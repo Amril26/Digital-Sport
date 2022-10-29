@@ -13,7 +13,7 @@ class BodyHistoryEvent extends StatelessWidget {
     return ListView.builder(
       itemCount: 10,
       padding: LayoutMargin.marginHorizontal20.copyWith(top: 16, bottom: 16),
-      itemBuilder: (context, index) => CardHistoryEvent(),
+      itemBuilder: (context, index) => const CardHistoryEvent(),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:digital_sport/pages/current_index_pages.dart';
 import 'package:digital_sport/pages/dashboard/dashboard_page.dart';
 import 'package:digital_sport/pages/favorite/favorite_page.dart';
 import 'package:digital_sport/pages/splash_page.dart';
+import 'package:digital_sport/pages/ticket/detail_event_page.dart';
 import 'package:digital_sport/pages/ticket/ticket_page.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         CurrentIndexPage.rootNamed: (context) => const CurrentIndexPage(),
         FavoritePage.rootNamed: (context) => const FavoritePage(),
         TicketPage.rootNamed: (context) => TicketPage(),
+        DetailEventPage.rootNamed: (context) => DetailEventPage(),
       },
     );
   }

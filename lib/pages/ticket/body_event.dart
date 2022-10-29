@@ -1,4 +1,5 @@
 import 'package:digital_sport/helpers/layout_style.dart';
+import 'package:digital_sport/pages/ticket/detail_event_page.dart';
 import 'package:digital_sport/pages/ticket/widgets/card_event.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,11 @@ class BodyEvent extends StatelessWidget {
     return ListView.builder(
       itemCount: 4,
       padding: LayoutMargin.marginHorizontal20.copyWith(top: 16, bottom: 16),
-      itemBuilder: (context, index) => CardEvent(),
+      itemBuilder: (context, index) => CardEvent(
+        onTap: () {
+          Navigator.pushNamed(context, DetailEventPage.rootNamed);
+        },
+      ),
     );
   }
 }

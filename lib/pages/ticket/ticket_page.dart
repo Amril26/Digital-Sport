@@ -20,7 +20,7 @@ class TicketPage extends StatelessWidget {
   final List<Widget> _body = [
     const BodyEvent(),
     const BodyHistoryEvent(),
-  ];
+  ]; 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

@@ -2,6 +2,7 @@ import 'package:digital_sport/core/visibility_stf.dart';
 import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
+import 'package:digital_sport/pages/dashboard/search_page.dart';
 import 'package:digital_sport/pages/dashboard/widgets/card_category.dart';
 import 'package:digital_sport/pages/detail_product/detail_product_page.dart';
 import 'package:digital_sport/pages/favorite/favorite_page.dart';
@@ -73,32 +74,36 @@ class DashboardPage extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: Container(
-                height: 40,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                ),
-                decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(8)),
-                child: TextField(
-                  decoration: InputDecoration(
-                    isDense: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 6,
+              child: InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, SearchPage.rootNamed);
+                },
+                child: Container(
+                    height: 40,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
                     ),
-                    icon: Image.asset(
-                      'assets/icons/search.png',
-                      height: 16,
-                      color: Colors.white,
-                      width: 16,
-                    ),
-                    border: InputBorder.none,
-                    hintText: 'Cari Jersey',
-                    hintStyle: TextSetting.p2.copyWith(
-                        color: Colors.white, fontWeight: FontWeight.w300),
-                  ),
-                ),
+                    decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.4),
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          'assets/icons/search.png',
+                          height: 16,
+                          color: Colors.white,
+                          width: 16,
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Text(
+                          'Cari Jersey',
+                          style: TextSetting.p2.copyWith(
+                              color: Colors.white, fontWeight: FontWeight.w300),
+                        )
+                      ],
+                    )),
               ),
             ),
             const SizedBox(
@@ -132,34 +137,37 @@ class DashboardPage extends StatelessWidget {
       pinned: true,
       titleSpacing: 1,
       title: SABT(
-        child: Container(
-          height: 40,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-          ),
-          margin: LayoutMargin.marginLeft20,
-          decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(8)),
-          child: TextField(
-            decoration: InputDecoration(
-              isDense: true,
-              contentPadding: const EdgeInsets.symmetric(
-                vertical: 6,
-              ),
-              icon: Image.asset(
-                'assets/icons/search.png',
-                height: 16,
-                color: Colors.white,
-                width: 16,
-              ),
-              border: InputBorder.none,
-              hintText: 'Cari Jersey',
-              hintStyle: TextSetting.p2
-                  .copyWith(color: Colors.white, fontWeight: FontWeight.w300),
-            ),
-          ),
-        ),
+        child: InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, SearchPage.rootNamed);
+            },
+            child: Container(
+                height: 40,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
+                margin: const EdgeInsets.only(left: 20),
+                decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.4),
+                    borderRadius: BorderRadius.circular(8)),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/icons/search.png',
+                      height: 16,
+                      color: Colors.white,
+                      width: 16,
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Text(
+                      'Cari Jersey',
+                      style: TextSetting.p2.copyWith(
+                          color: Colors.white, fontWeight: FontWeight.w300),
+                    )
+                  ],
+                ))),
       ),
       expandedHeight: MediaQuery.of(context).size.height * 0.30,
       flexibleSpace: FlexibleSpaceBar(

@@ -2,6 +2,7 @@ import 'package:digital_sport/pages/auth/login_page.dart';
 import 'package:digital_sport/pages/auth/register_page.dart';
 import 'package:digital_sport/pages/current_index_pages.dart';
 import 'package:digital_sport/pages/dashboard/dashboard_page.dart';
+import 'package:digital_sport/pages/dashboard/search_page.dart';
 import 'package:digital_sport/pages/detail_product/detail_product_page.dart';
 import 'package:digital_sport/pages/favorite/favorite_page.dart';
 import 'package:digital_sport/pages/splash_page.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         TicketPage.rootNamed: (context) => TicketPage(),
         DetailEventPage.rootNamed: (context) => DetailEventPage(),
         DetailProductPage.rootNamed: (context) => DetailProductPage(),
+        SearchPage.rootNamed: (context) => const SearchPage(),
       },
     );
   }

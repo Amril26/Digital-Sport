@@ -1,6 +1,7 @@
 import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
+import 'package:digital_sport/widgets/widget_button_primary.dart';
 import 'package:flutter/material.dart';
 
 class DetailProductPage extends StatelessWidget {
@@ -13,7 +14,7 @@ class DetailProductPage extends StatelessWidget {
         SafeArea(
           child: Container(
             alignment: Alignment.center,
-            padding: LayoutMargin.marginVertical20,
+            padding: const EdgeInsets.only(top: 25, bottom: 25),
             child: Image.asset(
               'assets/product1.png',
               height: MediaQuery.of(context).size.height * 0.33,
@@ -51,64 +52,18 @@ class DetailProductPage extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           _descriptionProduct(),
-        ],
-      ),
-    );
-  }
-
-  Widget _counterAddEvent() {
-    return Container(
-      padding: LayoutMargin.marginHorizontal20.copyWith(
-        top: 20,
-        bottom: 20,
-      ),
-      color: ColorApp.colorPrimary.withOpacity(0.1),
-      child: Row(
-        children: [
-          RichText(
-            text: TextSpan(children: [
-              TextSpan(
-                text: 'SubTotal   ',
-                style: TextSetting.h2.copyWith(fontWeight: FontWeight.w500),
-              ),
-              TextSpan(
-                text: 'Rp 287.96',
-                style: TextSetting.h2.copyWith(
-                    color: ColorApp.colorPrimary, fontWeight: FontWeight.w500),
-              ),
-            ]),
-          ),
           const Spacer(),
-          InkWell(
-            onTap: () {},
-            child: Image.asset(
-              'assets/icons/remove_item.png',
-              height: 24,
-              width: 24,
-            ),
-          ),
+          _counterAddEvent(),
           const SizedBox(
-            width: 16,
+            height: 20,
           ),
-          Text(
-            '2',
-            style: TextSetting.h2.copyWith(
-                color: ColorApp.colorPrimary, fontWeight: FontWeight.bold),
-          ),
+          _bottomBuyProduct(),
           const SizedBox(
-            width: 16,
-          ),
-          InkWell(
-            onTap: () {},
-            child: Image.asset(
-              'assets/icons/add_item.png',
-              height: 24,
-              width: 24,
-            ),
+            height: 30,
           )
         ],
       ),
@@ -116,37 +71,57 @@ class DetailProductPage extends StatelessWidget {
   }
 
   Widget _descriptionProduct() {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 30,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(
+          height: 30,
+        ),
+        Text(
+          'T-shirt Persebaya 1927 College - Greenasd asd asdasd ',
+          style: TextSetting.h1.copyWith(
+            letterSpacing: 1,
+            fontWeight: FontWeight.bold,
           ),
-          Text(
-            'T-shirt Persebaya 1927 College - Green',
-            style: TextSetting.h1.copyWith(
-              letterSpacing: 1,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Text(
+          'Aksesoris',
+          style: TextSetting.p2.copyWith(
+            letterSpacing: 1,
+            color: ColorApp.txColorsecondary,
+            fontWeight: FontWeight.w500,
           ),
-          const SizedBox(
-            height: 5,
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        _priceProduct(),
+        const SizedBox(
+          height: 20,
+        ),
+        Text(
+          'Description',
+          style: TextSetting.p1.copyWith(
+            letterSpacing: 1,
+            color: ColorApp.txColorPrimary,
+            fontWeight: FontWeight.w600,
           ),
-          Text(
-            'Aksesoris',
-            style: TextSetting.p2.copyWith(
-              letterSpacing: 1,
-              color: ColorApp.txColorsecondary,
-              fontWeight: FontWeight.w500,
-            ),
+        ),
+        const SizedBox(
+          height: 8,
+        ),
+        Text(
+          'Unpaved trails and mixed surfaces are easy when you have the traction and support you need. Casual enough for the daily commute.',
+          style: TextSetting.p1.copyWith(
+            letterSpacing: 1,
+            color: ColorApp.txColorPrimary,
+            fontWeight: FontWeight.w500,
           ),
-          const SizedBox(
-            height: 16,
-          ),
-          _priceProduct()
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -177,20 +152,92 @@ class DetailProductPage extends StatelessWidget {
     );
   }
 
+  Widget _counterAddEvent() {
+    return Row(
+      children: [
+        RichText(
+          text: TextSpan(children: [
+            TextSpan(
+              text: 'SubTotal   ',
+              style: TextSetting.h2.copyWith(fontWeight: FontWeight.w500),
+            ),
+            TextSpan(
+              text: 'Rp 0',
+              style: TextSetting.h2.copyWith(
+                  color: ColorApp.colorPrimary, fontWeight: FontWeight.w500),
+            ),
+          ]),
+        ),
+        const Spacer(),
+        InkWell(
+          onTap: () {},
+          child: Image.asset(
+            'assets/icons/remove_item.png',
+            height: 24,
+            width: 24,
+          ),
+        ),
+        const SizedBox(
+          width: 16,
+        ),
+        Text(
+          '2',
+          style: TextSetting.h2.copyWith(
+              color: ColorApp.colorPrimary, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(
+          width: 16,
+        ),
+        InkWell(
+          onTap: () {},
+          child: Image.asset(
+            'assets/icons/add_item.png',
+            height: 24,
+            width: 24,
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _bottomBuyProduct() {
+    return Row(
+      children: [
+        IconButton(
+            padding: EdgeInsets.zero,
+            onPressed: () {},
+            icon: Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: ColorApp.colorPrimary),
+              ),
+              child: Icon(
+                Icons.favorite,
+                color: ColorApp.colorPrimary,
+                size: 24,
+              ),
+            )),
+        const SizedBox(
+          width: 16,
+        ),
+        Expanded(
+          child: ButtonPrimary(
+              text: 'Beli Produk'.toUpperCase(),
+              onTap: () {
+                // TODO buy product
+              }),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0XFFB5DAC7),
       body: _headers(context),
-      //  Column(
-      //   mainAxisSize: MainAxisSize.min,
-      //   children: <Widget>[
-      //     _descriptionEvent(),
-      //     _priceEvent(),
-      //     const Spacer(),
-      //     _counterAddEvent(),
-      //   ],
-      // ),
       bottomNavigationBar: _bottomNavigationBar(
         context,
         onTap: () {},

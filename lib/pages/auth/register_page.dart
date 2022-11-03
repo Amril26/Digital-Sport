@@ -50,27 +50,27 @@ class RegisterPage extends StatelessWidget {
                   ),
                   const Spacer(),
                   //  NOTE:form
-                  WidgetForm(
-                    title: 'Nama',
-                    hintText: 'Masukan Nama anda',
-                    controllerText: _controllerEmail,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  WidgetForm(
-                    title: 'Alamat Email',
-                    hintText: 'Masukan email anda',
-                    controllerText: _controllerEmail,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  WidgetForm(
-                    title: 'Password',
-                    hintText: '********',
-                    controllerText: _controllerPassword,
-                  ),
+                  // WidgetForm(
+                  //   title: 'Nama',
+                  //   hintText: 'Masukan Nama anda',
+                  //   controllerText: _controllerEmail,
+                  // ),
+                  // const SizedBox(
+                  //   height: 15,
+                  // ),
+                  // WidgetForm(
+                  //   title: 'Alamat Email',
+                  //   hintText: 'Masukan email anda',
+                  //   controllerText: _controllerEmail,
+                  // ),
+                  // const SizedBox(
+                  //   height: 15,
+                  // ),
+                  // WidgetForm(
+                  //   title: 'Password',
+                  //   hintText: '********',
+                  //   controllerText: _controllerPassword,
+                  // ),
                   const SizedBox(
                     height: 40,
                   ),

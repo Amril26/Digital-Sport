@@ -1,10 +1,20 @@
 import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class WidgetCardHorizontal extends StatelessWidget {
   final Function() onTap;
-  const WidgetCardHorizontal({Key? key, required this.onTap}) : super(key: key);
+  final String image, title, categoryName;
+  final int price;
+  const WidgetCardHorizontal(
+      {Key? key,
+      required this.onTap,
+      required this.image,
+      required this.title,
+      required this.categoryName,
+      required this.price})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,31 +26,19 @@ class WidgetCardHorizontal extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               height: MediaQuery.of(context).size.width * 0.25,
               width: MediaQuery.of(context).size.width * 0.25,
               decoration: BoxDecoration(
                 color: ColorApp.colorPrimary.withOpacity(0.30),
                 borderRadius: BorderRadius.circular(10),
-              ),
-              child: Stack(
-                children: [
-                  Image.asset(
-                    'assets/product1.png',
-                    fit: BoxFit.contain,
+                image: DecorationImage(
+                  image: NetworkImage(image),
+                  fit: BoxFit.fill,
+                  colorFilter: ColorFilter.mode(
+                    ColorApp.colorPrimary.withOpacity(0.30),
+                    BlendMode.color,
                   ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: CircleAvatar(
-                      radius: 11,
-                      backgroundColor: ColorApp.colorPrimary,
-                      child: Text(
-                        'XL',
-                        style: TextSetting.d1.copyWith(color: Colors.white),
-                      ),
-                    ),
-                  )
-                ],
+                ),
               ),
             ),
             const SizedBox(
@@ -52,7 +50,7 @@ class WidgetCardHorizontal extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Jersey 2K22 Player  asdas sadas',
+                    title,
                     maxLines: 2,
                     style: TextSetting.p2.copyWith(
                       color: ColorApp.txColorPrimary,
@@ -61,7 +59,7 @@ class WidgetCardHorizontal extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Kaos Persebaya Wani Icon',
+                    categoryName,
                     maxLines: 1,
                     style: TextSetting.d1.copyWith(
                       letterSpacing: 1,
@@ -72,7 +70,7 @@ class WidgetCardHorizontal extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    '\$58,67',
+                    'Rp ${NumberFormat("#,###", "ID_id").format(price)}',
                     maxLines: 1,
                     style: TextSetting.p2.copyWith(
                       letterSpacing: 1.5,

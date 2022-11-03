@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "484273722733",
+    "project_id": "digital-sport-bc56c",
+    "storage_bucket": "digital-sport-bc56c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484273722733:android:dcb7a9b123e7eccdcb3664",
+        "android_client_info": {
+          "package_name": "com.example.digital_sport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484273722733-thioi8ifdbgh6pgujutav7hnjlruodd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0DbAvKoCV3YxZX1IP_C6BgVi2QucSkxA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484273722733-thioi8ifdbgh6pgujutav7hnjlruodd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

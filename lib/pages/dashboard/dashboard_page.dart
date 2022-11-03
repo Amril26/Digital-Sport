@@ -4,22 +4,35 @@ import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
 import 'package:digital_sport/pages/dashboard/search_page.dart';
 import 'package:digital_sport/pages/dashboard/widgets/card_category.dart';
+import 'package:digital_sport/pages/detail_category/detail_category_page.dart';
 import 'package:digital_sport/pages/detail_product/detail_product_page.dart';
 import 'package:digital_sport/pages/favorite/favorite_page.dart';
 import 'package:digital_sport/pages/ticket/ticket_page.dart';
+import 'package:digital_sport/providers/get/data_products_provider.dart';
 import 'package:digital_sport/widgets/widget_card_box.dart';
 import 'package:digital_sport/widgets/widget_card_horizontal.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class DashboardPage extends StatelessWidget {
-  DashboardPage({Key? key}) : super(key: key);
+class DashboardPage extends StatefulWidget {
+  const DashboardPage({Key? key}) : super(key: key);
 
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
   final List<String> _itemBanner = <String>[
     'assets/banner/banner3.png',
     'assets/banner/banner1.png',
     'assets/banner/banner2.png',
     'assets/banner/banner4.png',
   ];
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProductProviders>().getDataProduct();
+  }
 
   Widget _categoryButton(BuildContext context) {
     return Padding(
@@ -38,7 +51,10 @@ class DashboardPage extends StatelessWidget {
           ),
           CardCategory(
             onTapCategory: () {
-              //TODO :navigation ke category
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const DetailCategoryPage(
+                        category: 'sepatu',
+                      )));
             },
             title: 'Sepatu',
             pathAssets: 'assets/icons/sepatu.png',
@@ -47,7 +63,10 @@ class DashboardPage extends StatelessWidget {
           CardCategory(
             title: 'Baju',
             onTapCategory: () {
-              //TODO :navigation ke category
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const DetailCategoryPage(
+                        category: 'kaos',
+                      )));
             },
             pathAssets: 'assets/icons/baju.png',
             gradientColor: ColorApp.colorSecondary1,
@@ -55,7 +74,10 @@ class DashboardPage extends StatelessWidget {
           CardCategory(
             title: 'Aksesoris',
             onTapCategory: () {
-              //TODO :navigation ke category
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const DetailCategoryPage(
+                        category: 'aksesoris',
+                      )));
             },
             pathAssets: 'assets/icons/aksesoris.png',
             gradientColor: ColorApp.colorSecondary4,
@@ -267,15 +289,24 @@ class DashboardPage extends StatelessWidget {
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.30,
-            child: ListView.builder(
-              itemCount: 10,
-              scrollDirection: Axis.horizontal,
-              padding: LayoutMargin.marginHorizontal20,
-              itemBuilder: (context, index) => WidgetCardBox(
-                onTap: () {
-                  Navigator.pushNamed(context, DetailProductPage.rootNamed);
-                },
-              ),
+            child: Consumer<ProductProviders>(
+              builder: (context, dataProducts, _) {
+                return ListView.builder(
+                  itemCount: dataProducts.dataProducts.length,
+                  scrollDirection: Axis.horizontal,
+                  padding: LayoutMargin.marginHorizontal20,
+                  itemBuilder: (context, index) => WidgetCardBox(
+                    image: dataProducts.dataProducts[index].image[0],
+                    price: dataProducts.dataProducts[index].price,
+                    title: dataProducts.dataProducts[index].title,
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => DetailProductPage(
+                              id: dataProducts.dataProducts[index].id)));
+                    },
+                  ),
+                );
+              },
             ),
           ),
           const SizedBox(
@@ -288,17 +319,25 @@ class DashboardPage extends StatelessWidget {
               style: TextSetting.h1.copyWith(fontSize: 20),
             ),
           ),
-          ListView.builder(
-            itemCount: 10,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            padding: LayoutMargin.marginHorizontal20,
-            itemBuilder: (context, index) => WidgetCardHorizontal(
-              onTap: () {
-                Navigator.pushNamed(context, DetailProductPage.rootNamed);
-              },
-            ),
-          ),
+          Consumer<ProductProviders>(builder: (context, dataProducts, _) {
+            return ListView.builder(
+              itemCount: dataProducts.dataProducts.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: LayoutMargin.marginHorizontal20,
+              itemBuilder: (context, index) => WidgetCardHorizontal(
+                categoryName: dataProducts.dataProducts[index].categoryName,
+                image: dataProducts.dataProducts[index].image[0],
+                price: dataProducts.dataProducts[index].price,
+                title: dataProducts.dataProducts[index].title,
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => DetailProductPage(
+                          id: dataProducts.dataProducts[index].id)));
+                },
+              ),
+            );
+          })
         ],
       ),
     ));

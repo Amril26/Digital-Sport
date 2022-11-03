@@ -3,17 +3,24 @@ import 'package:digital_sport/helpers/text_style.dart';
 import 'package:digital_sport/pages/auth/register_page.dart';
 import 'package:digital_sport/pages/auth/widgets/widget_form.dart';
 import 'package:digital_sport/pages/auth/widgets/widget_headers.dart';
-import 'package:digital_sport/pages/current_index_pages.dart';
+import 'package:digital_sport/providers/auth_provider/auth_providers.dart';
 import 'package:digital_sport/widgets/widget_button_primary.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   static String rootNamed = 'login/';
   LoginPage({Key? key}) : super(key: key);
 
-  final TextEditingController _controllerEmail = TextEditingController();
-  final TextEditingController _controllerPassword = TextEditingController();
+  final TextEditingController _controllerEmail =
+      TextEditingController(text: '');
+  final TextEditingController _controllerPassword =
+      TextEditingController(text: '');
+
+  final GlobalKey<FormState> _keyEmail = GlobalKey<FormState>();
+  final GlobalKey<FormState> _keyPassword = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +60,9 @@ class LoginPage extends StatelessWidget {
                     title: 'Alamat Email',
                     hintText: 'Masukan email anda',
                     controllerText: _controllerEmail,
+                    keyForm: _keyEmail,
+                    obscureText: false,
+                    errorText: 'Silahkan isi kolom email',
                   ),
                   const SizedBox(
                     height: 25,
@@ -61,16 +71,41 @@ class LoginPage extends StatelessWidget {
                     title: 'Password',
                     hintText: '********',
                     controllerText: _controllerPassword,
+                    errorText: 'silahkan isi kolom password',
+                    obscureText: true,
+                    keyForm: _keyPassword,
                   ),
                   const SizedBox(
                     height: 50,
                   ),
-                  //  NOTE: Bottom Navigation Action
                   ButtonPrimary(
                       text: 'Masuk Akun',
                       onTap: () {
-                        Navigator.pushReplacementNamed(context, CurrentIndexPage.rootNamed);
+                        _keyEmail.currentState!.validate();
+                        _keyPassword.currentState!.validate();
+
+                        if (_controllerPassword.text != '' &&
+                            _controllerEmail.text != '') {
+                          context.read<AuthProvider>().login(context,
+                              email: _controllerEmail.text,
+                              password: _controllerPassword.text);
+                        }
                       }),
+                  //  NOTE: Bottom Navigation Action
+                  Consumer<AuthProvider>(builder: (context, authprof, child) {
+                    if (authprof.isLoadingsignIn == false) {
+                      return SizedBox();
+                    } else {
+                      return SizedBox(
+                        height: 24,
+                        width: 24,
+                        child: CupertinoActivityIndicator(
+                          color: ColorApp.colorPrimary,
+                        ),
+                      );
+                    }
+                  }),
+
                   const SizedBox(
                     height: 20,
                   ),

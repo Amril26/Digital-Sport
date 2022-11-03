@@ -1,25 +1,46 @@
 import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
+import 'package:digital_sport/providers/get/data_products_provider.dart';
 import 'package:digital_sport/widgets/widget_button_primary.dart';
+import 'package:digital_sport/widgets/widget_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class DetailProductPage extends StatelessWidget {
-  static String rootNamed = 'detail-product/';
-  DetailProductPage({Key? key}) : super(key: key);
+class DetailProductPage extends StatefulWidget {
+  final String id;
+  const DetailProductPage({Key? key, required this.id}) : super(key: key);
+
+  @override
+  State<DetailProductPage> createState() => _DetailProductPageState();
+}
+
+class _DetailProductPageState extends State<DetailProductPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProductProviders>().getdetailProduct(id: widget.id);
+  }
 
   Widget _headers(BuildContext context) {
     return Stack(
       children: [
         SafeArea(
           child: Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.only(top: 25, bottom: 25),
-            child: Image.asset(
-              'assets/product1.png',
-              height: MediaQuery.of(context).size.height * 0.33,
-            ),
-          ),
+              alignment: Alignment.center,
+              padding: const EdgeInsets.only(top: 25, bottom: 25),
+              child: Consumer<ProductProviders>(
+                  builder: (context, dataDetialPro, _) {
+                if (dataDetialPro.isLoadingDetail == true) {
+                  return const WidgetLoadingIndicator(size: 30);
+                } else {
+                  return Image.network(
+                    dataDetialPro.detailProduct.image[0],
+                    height: MediaQuery.of(context).size.height * 0.33,
+                    fit: BoxFit.fill,
+                  );
+                }
+              })),
         ),
         SafeArea(
           child: Padding(

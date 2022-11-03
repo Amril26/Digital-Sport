@@ -1,16 +1,23 @@
 import 'package:digital_sport/pages/auth/login_page.dart';
 import 'package:digital_sport/pages/auth/register_page.dart';
 import 'package:digital_sport/pages/current_index_pages.dart';
-import 'package:digital_sport/pages/dashboard/dashboard_page.dart';
 import 'package:digital_sport/pages/dashboard/search_page.dart';
 import 'package:digital_sport/pages/detail_product/detail_product_page.dart';
 import 'package:digital_sport/pages/favorite/favorite_page.dart';
 import 'package:digital_sport/pages/splash_page.dart';
 import 'package:digital_sport/pages/ticket/detail_event_page.dart';
 import 'package:digital_sport/pages/ticket/ticket_page.dart';
+import 'package:digital_sport/pages/wrapper_pages.dart';
+import 'package:digital_sport/providers/auth_provider/auth_providers.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+import 'providers/get/data_products_provider.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -20,20 +27,34 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Digital Sport',
-      debugShowCheckedModeBanner: false,
-      initialRoute: SplashPage.rootNamed,
-      routes: {
-        SplashPage.rootNamed: (context) => const SplashPage(),
-        LoginPage.rootNamed: (context) => LoginPage(),
-        RegisterPage.rootNamed: (context) => RegisterPage(),
-        CurrentIndexPage.rootNamed: (context) => const CurrentIndexPage(),
-        FavoritePage.rootNamed: (context) => const FavoritePage(),
-        TicketPage.rootNamed: (context) => TicketPage(),
-        DetailEventPage.rootNamed: (context) => DetailEventPage(),
-        DetailProductPage.rootNamed: (context) => DetailProductPage(),
-        SearchPage.rootNamed: (context) => const SearchPage(),
+    return MultiProvider(
+      providers: <ChangeNotifierProvider>[
+        ChangeNotifierProvider<AuthProvider>(
+            create: ((context) => AuthProvider())),
+        ChangeNotifierProvider<ProductProviders>(
+            create: ((context) => ProductProviders())),
+      ],
+      builder: (context, child) {
+        return StreamProvider.value(
+            value: context.read<AuthProvider>().userStreamChange,
+            initialData: null,
+            child: MaterialApp(
+              title: 'Digital Sport',
+              debugShowCheckedModeBanner: false,
+              initialRoute: SplashPage.rootNamed,
+              routes: {
+                SplashPage.rootNamed: (context) => const SplashPage(),
+                LoginPage.rootNamed: (context) => LoginPage(),
+                RegisterPage.rootNamed: (context) => RegisterPage(),
+                CurrentIndexPage.rootNamed: (context) =>
+                    const CurrentIndexPage(),
+                FavoritePage.rootNamed: (context) => const FavoritePage(),
+                TicketPage.rootNamed: (context) => TicketPage(),
+                DetailEventPage.rootNamed: (context) => DetailEventPage(),
+                SearchPage.rootNamed: (context) => const SearchPage(),
+                WrapperPage.rootNamed: (context) => const WrapperPage(),
+              },
+            ));
       },
     );
   }

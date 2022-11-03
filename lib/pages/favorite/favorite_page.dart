@@ -24,15 +24,17 @@ class FavoritePage extends StatelessWidget {
           style: TextSetting.h1,
         ),
       ),
-      body: ListView.builder(
-        padding: LayoutMargin.marginHorizontal20,
-        itemCount: 10,
-        itemBuilder: (context, index) => WidgetCardHorizontal(
-          onTap: () {
-            Navigator.pushNamed(context, DetailProductPage.rootNamed);
-          },
-        ),
-      ),
+      // body: ListView.builder(
+      //   padding: LayoutMargin.marginHorizontal20,
+      //   itemCount: 10,
+      //   itemBuilder: (context, index) => WidgetCardHorizontal(
+      //     image:
+      //         'https://cdn.shopify.com/s/files/1/0016/5111/4048/products/heroesBlack_1800x1800.jpg',
+      //     onTap: () {
+      //       Navigator.pushNamed(context, DetailProductPage.rootNamed);
+      //     },
+      //   ),
+      // ),
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
+import 'package:digital_sport/providers/auth_provider/auth_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -77,7 +79,9 @@ class ProfilePage extends StatelessWidget {
                     minWidth: 55,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(3)),
-                    onPressed: () async {},
+                    onPressed: () async {
+                      context.read<AuthProvider>().logOut(context);
+                    },
                     color: ColorApp.colorSecondary2.withOpacity(0.4),
                     child: Text('Logout',
                         style: TextSetting.p2.copyWith(

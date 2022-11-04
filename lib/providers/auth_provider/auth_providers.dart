@@ -13,14 +13,9 @@ class AuthProvider extends ChangeNotifier {
       {required String email, required String password}) async {
     _isLoadingsignIn = true;
     try {
-      print('============>  ' + _isLoadingsignIn.toString());
       await _auth.signInWithEmailAndPassword(
-          email: 'user2@gmail.com', password: '123456');
-      // print(response.user!.email);
-      // print(response.user!.displayName);
-      // print(await response.user!.getIdToken());
+          email: email, password: password);
       _isLoadingsignIn = false;
-      print('============>  ' + _isLoadingsignIn.toString());
       // return response;
     } on FirebaseAuthException catch (e) {
       _isLoadingsignIn = false;

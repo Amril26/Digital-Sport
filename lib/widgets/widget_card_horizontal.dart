@@ -81,13 +81,13 @@ class WidgetCardHorizontal extends StatelessWidget {
                 ],
               ),
             ),
-            InkWell(
-              onTap: () {},
-              child: Icon(
-                Icons.favorite,
-                color: ColorApp.colorPrimary,
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {},
+            //   child: Icon(
+            //     Icons.favorite,
+            //     color: ColorApp.colorPrimary,
+            //   ),
+            // ),
           ],
         ),
       ),

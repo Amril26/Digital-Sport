@@ -28,7 +28,6 @@ class ProductProviders extends ChangeNotifier {
       for (var item in message) {
         _dataProducts.add(ProductModel.fromJson(item));
       }
-      print('object');
     } catch (e) {
       _dataProducts = [];
       print('error Data');
@@ -67,7 +66,6 @@ class ProductProviders extends ChangeNotifier {
       for (var item in message) {
         if (item['id'].toString() == id) {
           _detailProduct = ProductModel.fromJson(item);
-          print(_detailProduct.title);
         }
       }
       _isLoadingDetail = false;

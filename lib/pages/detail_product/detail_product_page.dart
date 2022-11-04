@@ -5,6 +5,7 @@ import 'package:digital_sport/providers/get/data_products_provider.dart';
 import 'package:digital_sport/widgets/widget_button_primary.dart';
 import 'package:digital_sport/widgets/widget_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DetailProductPage extends StatefulWidget {
@@ -25,23 +26,27 @@ class _DetailProductPageState extends State<DetailProductPage> {
   Widget _headers(BuildContext context) {
     return Stack(
       children: [
-        SafeArea(
-          child: Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.only(top: 25, bottom: 25),
-              child: Consumer<ProductProviders>(
-                  builder: (context, dataDetialPro, _) {
-                if (dataDetialPro.isLoadingDetail == true) {
-                  return const WidgetLoadingIndicator(size: 30);
-                } else {
-                  return Image.network(
-                    dataDetialPro.detailProduct.image[0],
-                    height: MediaQuery.of(context).size.height * 0.33,
+        Container(
+            alignment: Alignment.center,
+            width: double.infinity,
+            height: MediaQuery.of(context).size.height * 0.33,
+            child: Consumer<ProductProviders>(
+                builder: (context, dataDetialPro, _) {
+              if (dataDetialPro.isLoadingDetail == true) {
+                return const WidgetLoadingIndicator(size: 30);
+              } else {
+                return PageView.builder(
+                  itemCount: dataDetialPro.detailProduct.image.length,
+                  itemBuilder: (context, index) => Image.network(
+                    dataDetialPro.detailProduct.image[index],
+                    width: double.infinity,
                     fit: BoxFit.fill,
-                  );
-                }
-              })),
-        ),
+                    color: ColorApp.colorPrimary.withOpacity(0.30),
+                    colorBlendMode: BlendMode.color,
+                  ),
+                );
+              }
+            })),
         SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(top: 16, left: 20),
@@ -92,61 +97,67 @@ class _DetailProductPageState extends State<DetailProductPage> {
   }
 
   Widget _descriptionProduct() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(
-          height: 30,
-        ),
-        Text(
-          'T-shirt Persebaya 1927 College - Greenasd asd asdasd ',
-          style: TextSetting.h1.copyWith(
-            letterSpacing: 1,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Text(
-          'Aksesoris',
-          style: TextSetting.p2.copyWith(
-            letterSpacing: 1,
-            color: ColorApp.txColorsecondary,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        _priceProduct(),
-        const SizedBox(
-          height: 20,
-        ),
-        Text(
-          'Description',
-          style: TextSetting.p1.copyWith(
-            letterSpacing: 1,
-            color: ColorApp.txColorPrimary,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        Text(
-          'Unpaved trails and mixed surfaces are easy when you have the traction and support you need. Casual enough for the daily commute.',
-          style: TextSetting.p1.copyWith(
-            letterSpacing: 1,
-            color: ColorApp.txColorPrimary,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
-    );
+    return Consumer<ProductProviders>(builder: (context, dataProduct, _) {
+      if (dataProduct.isLoadingDetail == true) {
+        return const WidgetLoadingIndicator(size: 30);
+      } else {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 30,
+            ),
+            Text(
+              dataProduct.detailProduct.title,
+              style: TextSetting.h1.copyWith(
+                letterSpacing: 1,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              dataProduct.detailProduct.category,
+              style: TextSetting.p2.copyWith(
+                letterSpacing: 1,
+                color: ColorApp.txColorsecondary,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            _priceProduct(price: dataProduct.detailProduct.price),
+            const SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Description',
+              style: TextSetting.p1.copyWith(
+                letterSpacing: 1,
+                color: ColorApp.txColorPrimary,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Text(
+              dataProduct.detailProduct.description,
+              style: TextSetting.p1.copyWith(
+                letterSpacing: 1,
+                color: ColorApp.txColorPrimary,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        );
+      }
+    });
   }
 
-  Widget _priceProduct() {
+  Widget _priceProduct({required int price}) {
     return Container(
       padding: LayoutMargin.marginHorizontal20.copyWith(top: 16, bottom: 16),
       decoration: BoxDecoration(
@@ -161,7 +172,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                 .copyWith(letterSpacing: 1, color: ColorApp.txColorPrimary),
           ),
           Text(
-            'Rp 45.000',
+            'Rp ${NumberFormat("#,###", "ID_id").format(price)}',
             style: TextSetting.p1.copyWith(
               letterSpacing: 1,
               color: ColorApp.colorPrimary,

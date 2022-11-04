@@ -1,24 +1,44 @@
 import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
-import 'package:digital_sport/pages/favorite/favorite_page.dart';
+import 'package:digital_sport/providers/get/data_events_providers.dart';
+import 'package:digital_sport/widgets/widget_loading.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-class DetailEventPage extends StatelessWidget {
+class DetailEventPage extends StatefulWidget {
+  final String id;
   static String rootNamed = 'detail-event/';
-  DetailEventPage({Key? key}) : super(key: key);
+  const DetailEventPage({Key? key, required this.id}) : super(key: key);
+
+  @override
+  State<DetailEventPage> createState() => _DetailEventPageState();
+}
+
+class _DetailEventPageState extends State<DetailEventPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<EventsProvider>().detailEvent(id: widget.id);
+  }
 
   Widget _headers(BuildContext context) {
     return Stack(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.33,
-          child: Image.asset(
-            'assets/banner_event.png',
             height: MediaQuery.of(context).size.height * 0.33,
-            fit: BoxFit.cover,
-          ),
-        ),
+            child: Consumer<EventsProvider>(builder: (context, dataDetail, _) {
+              if (dataDetail.isLoadDetail == true) {
+                return const WidgetLoadingIndicator(size: 30);
+              } else {
+                return Image.network(
+                  context.read<EventsProvider>().dataDetail.thumbnail,
+                  height: MediaQuery.of(context).size.height * 0.33,
+                  fit: BoxFit.cover,
+                );
+              }
+            })),
         SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(top: 16, left: 20),
@@ -129,39 +149,61 @@ class DetailEventPage extends StatelessWidget {
   }
 
   Widget _descriptionEvent() {
-    return Padding(
-      padding: LayoutMargin.marginHorizontal20,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Persebaya VS Persib'.toUpperCase(),
-            style: TextSetting.h1.copyWith(
-              letterSpacing: 1,
-              fontWeight: FontWeight.bold,
+    return Consumer<EventsProvider>(builder: (context, dataDetail, _) {
+      return Padding(
+        padding: LayoutMargin.marginHorizontal20,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 20,
             ),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            'Minggu, 11 Sep 2022, 15:45',
-            style: TextSetting.p2.copyWith(
-              letterSpacing: 1,
-              color: ColorApp.txColorsecondary,
-              fontWeight: FontWeight.w500,
+            Text(
+              dataDetail.dataDetail.title.toUpperCase(),
+              style: TextSetting.h1.copyWith(
+                letterSpacing: 1,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Row(
-            children: [
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              '${DateFormat('dd MMMM yyyy, HH:mm').format(DateTime.parse(dataDetail.dataDetail.date))}',
+              style: TextSetting.p2.copyWith(
+                letterSpacing: 1,
+                color: ColorApp.txColorsecondary,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Row(
+              children: [
+                Image.asset(
+                  'assets/icons/stadion.png',
+                  height: 30,
+                  width: 30,
+                  color: ColorApp.txColorPrimary,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  dataDetail.dataDetail.location,
+                  maxLines: 1,
+                  style: TextSetting.p2.copyWith(
+                    letterSpacing: 1,
+                    color: ColorApp.txColorPrimary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+            Row(children: [
               Image.asset(
-                'assets/icons/stadion.png',
+                'assets/icons/tiket2.png',
                 height: 30,
                 width: 30,
                 color: ColorApp.txColorPrimary,
@@ -170,7 +212,7 @@ class DetailEventPage extends StatelessWidget {
                 width: 5,
               ),
               Text(
-                'Gelora Bung Tomo, Surabaya',
+                'Tiket (${dataDetail.dataDetail.countTicket})',
                 maxLines: 1,
                 style: TextSetting.p2.copyWith(
                   letterSpacing: 1,
@@ -178,31 +220,11 @@ class DetailEventPage extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-            ],
-          ),
-          Row(children: [
-            Image.asset(
-              'assets/icons/tiket2.png',
-              height: 30,
-              width: 30,
-              color: ColorApp.txColorPrimary,
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            Text(
-              'Tiket (2)',
-              maxLines: 1,
-              style: TextSetting.p2.copyWith(
-                letterSpacing: 1,
-                color: ColorApp.txColorPrimary,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ]),
-        ],
-      ),
-    );
+            ]),
+          ],
+        ),
+      );
+    });
   }
 
   Widget _priceEvent() {

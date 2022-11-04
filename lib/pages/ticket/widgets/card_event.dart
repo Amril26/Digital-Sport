@@ -1,9 +1,20 @@
+import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CardEvent extends StatelessWidget {
+  final String thumbnail, title, date, location, countTicket;
   final Function() onTap;
-  const CardEvent({Key? key, required this.onTap}) : super(key: key);
+  const CardEvent(
+      {Key? key,
+      required this.onTap,
+      required this.thumbnail,
+      required this.title,
+      required this.date,
+      required this.location,
+      required this.countTicket})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +25,14 @@ class CardEvent extends StatelessWidget {
         children: [
           Container(
             height: MediaQuery.of(context).size.height * 0.25,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10), topRight: Radius.circular(10)),
               image: DecorationImage(
-                fit: BoxFit.fill,
-                image: AssetImage('assets/banner_event.png'),
-              ),
+                  fit: BoxFit.fill,
+                  image: NetworkImage(thumbnail),
+                  colorFilter: ColorFilter.mode(
+                      ColorApp.colorPrimary.withOpacity(0.3), BlendMode.color)),
             ),
           ),
           Container(
@@ -30,19 +42,21 @@ class CardEvent extends StatelessWidget {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.fill,
-                image: AssetImage('assets/bg_ticket.png'),
+                image: AssetImage(
+                  'assets/bg_ticket.png',
+                ),
               ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Persebaya VS Persib',
+                  title,
                   style: TextSetting.h1.copyWith(
                       color: Colors.white, fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  'Minggu, 11 Sep 2022, 15:45',
+                  '${DateFormat('dd MMMM yyyy, HH:mm').format(DateTime.parse(date))}',
                   style: TextSetting.p2.copyWith(
                       color: Colors.white, fontWeight: FontWeight.w500),
                 ),
@@ -61,7 +75,7 @@ class CardEvent extends StatelessWidget {
                       width: 4,
                     ),
                     Text(
-                      'Gelora Bung Tomo, Surabaya',
+                      location,
                       maxLines: 1,
                       style: TextSetting.p2.copyWith(
                         letterSpacing: 1,
@@ -82,7 +96,7 @@ class CardEvent extends StatelessWidget {
                     width: 4,
                   ),
                   Text(
-                    'Tiket (2)',
+                    'Tiket ($countTicket)',
                     maxLines: 1,
                     style: TextSetting.p2.copyWith(
                       letterSpacing: 1,

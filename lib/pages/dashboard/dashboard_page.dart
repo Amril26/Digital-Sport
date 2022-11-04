@@ -42,7 +42,6 @@ class _DashboardPageState extends State<DashboardPage> {
         children: [
           CardCategory(
             onTapCategory: () {
-              //TODO :navigation ke category
               Navigator.pushNamed(context, TicketPage.rootNamed);
             },
             title: 'Tiket',

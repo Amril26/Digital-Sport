@@ -2,11 +2,23 @@ import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
 import 'package:digital_sport/providers/auth_provider/auth_providers.dart';
+import 'package:digital_sport/providers/get/data_user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<DataUserProvider>().userData(context);
+  }
 
   Widget _headers(BuildContext context) {
     return SizedBox(
@@ -99,28 +111,34 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _desciptionProfil() {
-    return Padding(
-      padding: LayoutMargin.marginHorizontal20,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Amril Rismanto Ichsan',
-            style: TextSetting.h1.copyWith(fontWeight: FontWeight.w600),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 10),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: ColorApp.colorPrimary),
-            child: Text(
-              'Anggota Aktif',
-              style: TextSetting.p2
-                  .copyWith(fontWeight: FontWeight.w500, color: Colors.white),
+    return Consumer<DataUserProvider>(
+      builder: (context, dataProfile, _) => Padding(
+        padding: LayoutMargin.marginHorizontal20,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              dataProfile.isLoad == true
+                  ? 'Loading....'
+                  : dataProfile.dataProfile.name,
+              style: TextSetting.h1.copyWith(fontWeight: FontWeight.w600),
             ),
-          )
-        ],
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: ColorApp.colorPrimary),
+              child: Text(
+                dataProfile.isLoad == true
+                  ? 'Loading....'
+                  : dataProfile.dataProfile.status == 'active' ? 'Aktif' : 'Banned',
+                style: TextSetting.p2
+                    .copyWith(fontWeight: FontWeight.w500, color: Colors.white),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

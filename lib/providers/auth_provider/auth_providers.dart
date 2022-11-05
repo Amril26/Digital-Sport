@@ -55,13 +55,13 @@ class AuthProvider extends ChangeNotifier {
       required String password}) async {
     try {
       _isLoadingRegister = true;
-      _auth.createUserWithEmailAndPassword(email: email, password: password);
+      await _auth.createUserWithEmailAndPassword(email: email, password: password);
       CUserDBFProvider.createUserDB(
           name: name,
           email: email,
           password: password,
           idUser: _auth.currentUser!.uid);
-      Navigator.pushNamed(context, WrapperPage.rootNamed);
+      Navigator.of(context).pushNamed(WrapperPage.rootNamed);
       _isLoadingRegister = true;
     } on FirebaseAuthException catch (e) {
       _isLoadingRegister = false;
@@ -78,6 +78,7 @@ class AuthProvider extends ChangeNotifier {
                 message: 'Periksa format email anda'));
       }
     }
+    notifyListeners();
   }
 
   Future<void> logOut(BuildContext context) async {

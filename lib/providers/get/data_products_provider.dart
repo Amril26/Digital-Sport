@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_sport/helpers/url.dart';
 import 'package:digital_sport/models/products_model.dart';
 import 'package:flutter/foundation.dart';
 
 class ProductProviders extends ChangeNotifier {
   final CollectionReference _collectionData =
-      FirebaseFirestore.instance.collection('products');
+      FirebaseFirestore.instance.collection(PathUrl.pathProduct);
 
   ProductModel _detailProduct = ProductModel.fromJson({'': ''});
   ProductModel get detailProduct => _detailProduct;

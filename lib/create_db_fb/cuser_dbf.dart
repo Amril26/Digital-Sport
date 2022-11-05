@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../helpers/url.dart';
+
 /// class ini berfungsi untuk membuat storeage pada Firebase dengan collection USer untuk menyimpan data User
 class CUserDBFProvider {
   static Future createUserDB({
@@ -9,7 +11,7 @@ class CUserDBFProvider {
     required String password,
   }) async {
     final CollectionReference instFireStore =
-        FirebaseFirestore.instance.collection('users_dumy');
+        FirebaseFirestore.instance.collection(PathUrl.pathUser);
     final Map<String, dynamic> cdataUser = <String, dynamic>{
       'id': idUser,
       'name': name,

@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_sport/helpers/url.dart';
 import 'package:digital_sport/models/events_model.dart';
 import 'package:flutter/foundation.dart';
 
 class EventsProvider extends ChangeNotifier {
   final CollectionReference _collectionData =
-      FirebaseFirestore.instance.collection('event_ticket');
+      FirebaseFirestore.instance.collection(PathUrl.pathEvent);
   List<EventModel> _dataEvent = [];
   List<EventModel> get dataEvent => _dataEvent;
 

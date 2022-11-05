@@ -9,7 +9,6 @@ import 'package:digital_sport/pages/detail_product/detail_product_page.dart';
 import 'package:digital_sport/pages/favorite/favorite_page.dart';
 import 'package:digital_sport/pages/ticket/ticket_page.dart';
 import 'package:digital_sport/providers/get/data_products_provider.dart';
-import 'package:digital_sport/providers/get/data_user_provider.dart';
 import 'package:digital_sport/widgets/widget_card_box.dart';
 import 'package:digital_sport/widgets/widget_card_horizontal.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +32,6 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     super.initState();
     context.read<ProductProviders>().getDataProduct();
-    context.read<DataUserProvider>().userData();
   }
 
   Widget _categoryButton(BuildContext context) {

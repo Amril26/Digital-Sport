@@ -1,6 +1,5 @@
 import 'package:digital_sport/helpers/snack_bar_custom.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AuthProvider extends ChangeNotifier {
@@ -13,13 +12,13 @@ class AuthProvider extends ChangeNotifier {
       {required String email, required String password}) async {
     _isLoadingsignIn = true;
     try {
-      await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+      _isLoadingsignIn = true;
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
       _isLoadingsignIn = false;
       // return response;
     } on FirebaseAuthException catch (e) {
       _isLoadingsignIn = false;
-      if (e.message!.toLowerCase() ==
+      if (e.message!.toLowerCase() == 
           'The password is invalid or the user does not have a password.'
               .toLowerCase()) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -42,10 +41,19 @@ class AuthProvider extends ChangeNotifier {
                 'Gagal login, Kesalahan email atau password tidak terdaftar!'));
       }
     }
+    _isLoadingsignIn = false;
     notifyListeners();
   }
 
-  Future register({required String email, required String password}) async {}
+  Future register({required String email, required String password}) async {
+    try {
+      final response = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      print(response);
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+  }
 
   Future<void> logOut(BuildContext context) async {
     await _auth.signOut();

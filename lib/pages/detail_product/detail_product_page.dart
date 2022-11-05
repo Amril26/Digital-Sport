@@ -2,6 +2,7 @@ import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
 import 'package:digital_sport/providers/get/data_products_provider.dart';
+import 'package:digital_sport/providers/post/buy_product_provider.dart';
 import 'package:digital_sport/widgets/widget_button_primary.dart';
 import 'package:digital_sport/widgets/widget_loading.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
   void initState() {
     super.initState();
     context.read<ProductProviders>().getdetailProduct(id: widget.id);
+    context.read<BuyProductProvider>().restart();
   }
 
   Widget _headers(BuildContext context) {
@@ -63,36 +65,12 @@ class _DetailProductPageState extends State<DetailProductPage> {
               ),
             ),
           ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: _descriptionProduct(),
         )
       ],
-    );
-  }
-
-  Widget _bottomNavigationBar(BuildContext context,
-      {required Function() onTap}) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.68,
-      alignment: Alignment.center,
-      padding: LayoutMargin.marginVertical20,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          _descriptionProduct(),
-          const Spacer(),
-          _counterAddEvent(),
-          const SizedBox(
-            height: 20,
-          ),
-          _bottomBuyProduct(),
-          const SizedBox(
-            height: 30,
-          )
-        ],
-      ),
     );
   }
 
@@ -101,57 +79,66 @@ class _DetailProductPageState extends State<DetailProductPage> {
       if (dataProduct.isLoadingDetail == true) {
         return const WidgetLoadingIndicator(size: 30);
       } else {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 30,
-            ),
-            Text(
-              dataProduct.detailProduct.title,
-              style: TextSetting.h1.copyWith(
-                letterSpacing: 1,
-                fontWeight: FontWeight.bold,
+        return Container(
+          height: MediaQuery.of(context).size.height * 0.50,
+          alignment: Alignment.center,
+          padding: LayoutMargin.marginVertical20,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25), topRight: Radius.circular(25)),
+          ),
+          child: ListView(
+            children: [
+              const SizedBox(
+                height: 30,
               ),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(
-              dataProduct.detailProduct.category,
-              style: TextSetting.p2.copyWith(
-                letterSpacing: 1,
-                color: ColorApp.txColorsecondary,
-                fontWeight: FontWeight.w500,
+              Text(
+                dataProduct.detailProduct.title,
+                style: TextSetting.h1.copyWith(
+                  letterSpacing: 1,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            _priceProduct(price: dataProduct.detailProduct.price),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Description',
-              style: TextSetting.p1.copyWith(
-                letterSpacing: 1,
-                color: ColorApp.txColorPrimary,
-                fontWeight: FontWeight.w600,
+              const SizedBox(
+                height: 5,
               ),
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            Text(
-              dataProduct.detailProduct.description,
-              style: TextSetting.p1.copyWith(
-                letterSpacing: 1,
-                color: ColorApp.txColorPrimary,
-                fontWeight: FontWeight.w500,
+              Text(
+                dataProduct.detailProduct.category,
+                style: TextSetting.p2.copyWith(
+                  letterSpacing: 1,
+                  color: ColorApp.txColorsecondary,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 16,
+              ),
+              _priceProduct(price: dataProduct.detailProduct.price),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Description',
+                style: TextSetting.p1.copyWith(
+                  letterSpacing: 1,
+                  color: ColorApp.txColorPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
+                dataProduct.detailProduct.description,
+                style: TextSetting.p1.copyWith(
+                  letterSpacing: 1,
+                  color: ColorApp.txColorPrimary,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
         );
       }
     });
@@ -184,96 +171,122 @@ class _DetailProductPageState extends State<DetailProductPage> {
     );
   }
 
-  Widget _counterAddEvent() {
-    return Row(
-      children: [
-        RichText(
-          text: TextSpan(children: [
-            TextSpan(
-              text: 'SubTotal   ',
-              style: TextSetting.h2.copyWith(fontWeight: FontWeight.w500),
-            ),
-            TextSpan(
-              text: 'Rp 0',
-              style: TextSetting.h2.copyWith(
-                  color: ColorApp.colorPrimary, fontWeight: FontWeight.w500),
-            ),
-          ]),
-        ),
-        const Spacer(),
-        InkWell(
-          onTap: () {},
-          child: Image.asset(
-            'assets/icons/remove_item.png',
-            height: 24,
-            width: 24,
-          ),
-        ),
-        const SizedBox(
-          width: 16,
-        ),
-        Text(
-          '2',
-          style: TextSetting.h2.copyWith(
-              color: ColorApp.colorPrimary, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          width: 16,
-        ),
-        InkWell(
-          onTap: () {},
-          child: Image.asset(
-            'assets/icons/add_item.png',
-            height: 24,
-            width: 24,
-          ),
-        )
-      ],
-    );
-  }
-
   Widget _bottomBuyProduct() {
-    return Row(
-      children: [
-        IconButton(
-            padding: EdgeInsets.zero,
-            onPressed: () {},
-            icon: Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: ColorApp.colorPrimary),
+    return Consumer2<BuyProductProvider, ProductProviders>(
+        builder: (context, dataBuyPro, dataDetail, _) => Container(
+              color: Colors.white,
+              padding:
+                  LayoutMargin.marginHorizontal20.copyWith(top: 16, bottom: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      RichText(
+                        text: TextSpan(children: [
+                          TextSpan(
+                            text: 'Total  ',
+                            style: TextSetting.h2
+                                .copyWith(fontWeight: FontWeight.w500),
+                          ),
+                          TextSpan(
+                            text:
+                                'Rp ${dataBuyPro.countProduct == 1 ? NumberFormat("#,###", "ID_id").format(dataDetail.detailProduct.price) : NumberFormat("#,###", "ID_id").format(dataBuyPro.totalPrice)}',
+                            style: TextSetting.h2.copyWith(
+                                color: ColorApp.colorPrimary,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ]),
+                      ),
+                      const Spacer(),
+                      InkWell(
+                        onTap: () => context
+                            .read<BuyProductProvider>()
+                            .removeProduct(
+                                price: dataDetail.detailProduct.price),
+                        child: Image.asset(
+                          'assets/icons/remove_item.png',
+                          height: 24,
+                          width: 24,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Text(
+                        dataBuyPro.countProduct.toString(),
+                        style: TextSetting.h2.copyWith(
+                            color: ColorApp.colorPrimary,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      InkWell(
+                        onTap: () => context
+                            .read<BuyProductProvider>()
+                            .addProduct(price: dataDetail.detailProduct.price),
+                        child: Image.asset(
+                          'assets/icons/add_item.png',
+                          height: 24,
+                          width: 24,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {},
+                          icon: Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: ColorApp.colorPrimary),
+                            ),
+                            child: Icon(
+                              Icons.favorite,
+                              color: ColorApp.colorPrimary,
+                              size: 24,
+                            ),
+                          )),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Expanded(
+                        child: ButtonPrimary(
+                          text: dataBuyPro.isLoadBuy == false
+                              ? 'Beli Produk'.toUpperCase()
+                              : 'Loading....',
+                          onTap: () => dataBuyPro.isLoadBuy == false
+                              ? context.read<BuyProductProvider>().buyproduct(
+                                    context,
+                                    image: dataDetail.detailProduct.image[0],
+                                    title: dataDetail.detailProduct.title,
+                                    price: dataBuyPro.countProduct == 1
+                                        ? dataDetail.detailProduct.price
+                                        : dataBuyPro.totalPrice,
+                                  )
+                              : null,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              child: Icon(
-                Icons.favorite,
-                color: ColorApp.colorPrimary,
-                size: 24,
-              ),
-            )),
-        const SizedBox(
-          width: 16,
-        ),
-        Expanded(
-          child: ButtonPrimary(
-              text: 'Beli Produk'.toUpperCase(),
-              onTap: () {
-                // TODO buy product
-              }),
-        ),
-      ],
-    );
+            ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0XFFB5DAC7),
-      body: _headers(context),
-      bottomNavigationBar: _bottomNavigationBar(
-        context,
-        onTap: () {},
-      ),
-    );
+        backgroundColor: const Color(0XFFB5DAC7),
+        body: _headers(context),
+        bottomNavigationBar: _bottomBuyProduct());
   }
 }

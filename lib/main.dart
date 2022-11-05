@@ -2,10 +2,8 @@ import 'package:digital_sport/pages/auth/login_page.dart';
 import 'package:digital_sport/pages/auth/register_page.dart';
 import 'package:digital_sport/pages/current_index_pages.dart';
 import 'package:digital_sport/pages/dashboard/search_page.dart';
-import 'package:digital_sport/pages/detail_product/detail_product_page.dart';
 import 'package:digital_sport/pages/favorite/favorite_page.dart';
 import 'package:digital_sport/pages/splash_page.dart';
-import 'package:digital_sport/pages/ticket/detail_event_page.dart';
 import 'package:digital_sport/pages/ticket/ticket_page.dart';
 import 'package:digital_sport/pages/wrapper_pages.dart';
 import 'package:digital_sport/providers/auth_provider/auth_providers.dart';
@@ -15,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/get/data_products_provider.dart';
+import 'providers/get/data_user_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +35,8 @@ class MyApp extends StatelessWidget {
             create: ((context) => ProductProviders())),
         ChangeNotifierProvider<EventsProvider>(
             create: ((context) => EventsProvider())),
+        ChangeNotifierProvider<DataUserProvider>(
+            create: ((context) => DataUserProvider())),
       ],
       builder: (context, child) {
         return StreamProvider.value(

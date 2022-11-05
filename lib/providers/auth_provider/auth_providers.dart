@@ -1,4 +1,6 @@
+import 'package:digital_sport/create_db_fb/cuser_dbf.dart';
 import 'package:digital_sport/helpers/snack_bar_custom.dart';
+import 'package:digital_sport/pages/wrapper_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +10,9 @@ class AuthProvider extends ChangeNotifier {
   bool _isLoadingsignIn = false;
   bool get isLoadingsignIn => _isLoadingsignIn;
 
+  bool _isLoadingRegister = false;
+  bool get isLoadingRegister => _isLoadingRegister;
+
   Future login(BuildContext context,
       {required String email, required String password}) async {
     _isLoadingsignIn = true;
@@ -15,10 +20,9 @@ class AuthProvider extends ChangeNotifier {
       _isLoadingsignIn = true;
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       _isLoadingsignIn = false;
-      // return response;
     } on FirebaseAuthException catch (e) {
       _isLoadingsignIn = false;
-      if (e.message!.toLowerCase() == 
+      if (e.message!.toLowerCase() ==
           'The password is invalid or the user does not have a password.'
               .toLowerCase()) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -34,7 +38,7 @@ class AuthProvider extends ChangeNotifier {
           'The email address is badly formatted.'.toString()) {
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBarWidget.snackBarNotSucces(
-                message: 'Periksa formated email anda'));
+                message: 'Periksa format email anda'));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBarWidget.snackBarNotSucces(
             message:
@@ -45,13 +49,34 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future register({required String email, required String password}) async {
+  Future register(BuildContext context,
+      {required String name,
+      required String email,
+      required String password}) async {
     try {
-      final response = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      print(response);
+      _isLoadingRegister = true;
+      _auth.createUserWithEmailAndPassword(email: email, password: password);
+      CUserDBFProvider.createUserDB(
+          name: name,
+          email: email,
+          password: password,
+          idUser: _auth.currentUser!.uid);
+      Navigator.pushNamed(context, WrapperPage.rootNamed);
+      _isLoadingRegister = true;
     } on FirebaseAuthException catch (e) {
-      print(e);
+      _isLoadingRegister = false;
+      if (e.message.toString().toLowerCase() ==
+          'The email address is already in use by another account.'
+              .toLowerCase()) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBarWidget.snackBarNotSucces(
+                message: 'Email sudah digunakan, isi form degan data berbeda'));
+      } else if (e.message.toString().toLowerCase() ==
+          'The email address is badly formatted.'.toLowerCase()) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBarWidget.snackBarNotSucces(
+                message: 'Periksa format email anda'));
+      }
     }
   }
 

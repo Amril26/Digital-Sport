@@ -1,8 +1,7 @@
 import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/pages/ticket/detail_event_page.dart';
 import 'package:digital_sport/pages/ticket/widgets/card_event.dart';
-import 'package:digital_sport/providers/get/data_events_providers.dart';
-import 'package:digital_sport/providers/get/data_myticket_provider.dart';
+import 'package:digital_sport/providers/get/data_events_providers.dart'; 
 import 'package:digital_sport/widgets/widget_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

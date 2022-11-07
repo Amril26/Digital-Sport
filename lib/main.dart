@@ -11,6 +11,7 @@ import 'package:digital_sport/providers/get/data_events_providers.dart';
 import 'package:digital_sport/providers/get/data_favorite_providers.dart';
 import 'package:digital_sport/providers/get/data_myproduct_provider.dart';
 import 'package:digital_sport/providers/get/data_myticket_provider.dart';
+import 'package:digital_sport/providers/get/match_providers.dart';
 import 'package:digital_sport/providers/post/buy_product_provider.dart';
 import 'package:digital_sport/providers/post/buy_ticket_provider.dart';
 import 'package:digital_sport/providers/post/setun_favotire_providers.dart';
@@ -55,6 +56,8 @@ class MyApp extends StatelessWidget {
             create: ((context) => SetUnSetFavoriteProviders())),
         ChangeNotifierProvider<DataFavoriteProvider>(
             create: ((context) => DataFavoriteProvider())),
+        ChangeNotifierProvider<MatchProvider>(
+            create: ((context) => MatchProvider())),
       ],
       builder: (context, child) {
         return StreamProvider.value(

@@ -1,6 +1,7 @@
 import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
+import 'package:digital_sport/pages/detail_product/history_transaction_page.dart';
 import 'package:digital_sport/providers/auth_provider/auth_providers.dart';
 import 'package:digital_sport/providers/get/data_user_provider.dart';
 import 'package:flutter/material.dart';
@@ -131,8 +132,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   color: ColorApp.colorPrimary),
               child: Text(
                 dataProfile.isLoad == true
-                  ? 'Loading....'
-                  : dataProfile.dataProfile.status == 'active' ? 'Aktif' : 'Banned',
+                    ? 'Loading....'
+                    : dataProfile.dataProfile.status == 'active'
+                        ? 'Aktif'
+                        : 'Banned',
                 style: TextSetting.p2
                     .copyWith(fontWeight: FontWeight.w500, color: Colors.white),
               ),
@@ -182,6 +185,32 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(width: 30),
                 Text(
                   'Ubah Katasandi',
+                  style: TextSetting.p2.copyWith(
+                    fontSize: 12,
+                    color: ColorApp.txColorPrimary,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const Spacer(),
+                Icon(Icons.arrow_forward,
+                    size: 12, color: ColorApp.txColorsecondary)
+              ])),
+          FlatButton(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HistoryTransactionPage()));
+              },
+              child: Row(children: [
+                Icon(
+                  Icons.history,
+                  color: ColorApp.colorPrimary,
+                ),
+                const SizedBox(width: 30),
+                Text(
+                  'Transaksi Produk',
                   style: TextSetting.p2.copyWith(
                     fontSize: 12,
                     color: ColorApp.txColorPrimary,

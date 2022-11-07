@@ -8,9 +8,12 @@ import 'package:digital_sport/pages/ticket/ticket_page.dart';
 import 'package:digital_sport/pages/wrapper_pages.dart';
 import 'package:digital_sport/providers/auth_provider/auth_providers.dart';
 import 'package:digital_sport/providers/get/data_events_providers.dart';
+import 'package:digital_sport/providers/get/data_favorite_providers.dart';
+import 'package:digital_sport/providers/get/data_myproduct_provider.dart';
 import 'package:digital_sport/providers/get/data_myticket_provider.dart';
 import 'package:digital_sport/providers/post/buy_product_provider.dart';
 import 'package:digital_sport/providers/post/buy_ticket_provider.dart';
+import 'package:digital_sport/providers/post/setun_favotire_providers.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +49,12 @@ class MyApp extends StatelessWidget {
             create: ((context) => BuyTicketProvider())),
         ChangeNotifierProvider<DataMyTicketProviders>(
             create: ((context) => DataMyTicketProviders())),
+        ChangeNotifierProvider<DataMyProdukProviders>(
+            create: ((context) => DataMyProdukProviders())),
+        ChangeNotifierProvider<SetUnSetFavoriteProviders>(
+            create: ((context) => SetUnSetFavoriteProviders())),
+        ChangeNotifierProvider<DataFavoriteProvider>(
+            create: ((context) => DataFavoriteProvider())),
       ],
       builder: (context, child) {
         return StreamProvider.value(

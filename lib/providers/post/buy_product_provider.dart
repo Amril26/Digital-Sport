@@ -42,11 +42,13 @@ class BuyProductProvider extends ChangeNotifier {
         size: 'xl',
         title: title,
       );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBarWidget.snackBarSucces(
+          message: 'Berhasil Membeli Produk  ${title.toUpperCase()}'));
+      Navigator.pop(context);
     } catch (e) {
       _isLoadBuy = false;
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBarWidget.snackBarNotSucces(
-              message: 'Periksa format email anda'));
+          SnackBarWidget.snackBarNotSucces(message: 'Gagal membeli Product'));
     }
     _isLoadBuy = false;
     notifyListeners();

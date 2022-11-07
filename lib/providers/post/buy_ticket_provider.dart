@@ -40,30 +40,40 @@ class BuyTicketProvider extends ChangeNotifier {
     }
   }
 
-  Future buyTicket(
-    BuildContext context, {
-    required String thumbnail,
-    required String title,
-    required int totalPrice,
-    required String location,
-    required String date,
-  }) async {
+  Future buyTicket(BuildContext context,
+      {required String thumbnail,
+      required String title,
+      required int totalPrice,
+      required String location,
+      required String date,
+      required String statusUser}) async {
     _isLoadBuy = true;
     try {
-      await CBuyTicket.addProductBuy(
-        countTicket: countTicket,
-        totalPrice: totalPrice,
-        codeTicket: getRandomString(10),
-        thumbnail: thumbnail,
-        title: title,
-        location: location,
-        date: date,
-      );
+      if (statusUser == 'active') {
+        print('berhasil');
+        await CBuyTicket.addProductBuy(
+          countTicket: countTicket,
+          totalPrice: totalPrice,
+          codeTicket: getRandomString(10),
+          thumbnail: thumbnail,
+          title: title,
+          location: location,
+          date: date,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBarWidget.snackBarSucces(
+                message: 'Berhasil Membelii Ticket ${title.toUpperCase()}'));
+        Navigator.pop(context);
+      } else {
+        print('gagal');
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBarWidget.snackBarNotSucces(
+                message: 'Akun Anda Terkena Suspend,'));
+      }
     } catch (e) {
       _isLoadBuy = false;
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBarWidget.snackBarNotSucces(
-              message: 'Periksa format email anda'));
+          SnackBarWidget.snackBarNotSucces(message: 'Gagal membeli tiket'));
     }
     _isLoadBuy = false;
     notifyListeners();

@@ -2,6 +2,7 @@ import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
 import 'package:digital_sport/providers/get/data_events_providers.dart';
+import 'package:digital_sport/providers/get/data_user_provider.dart';
 import 'package:digital_sport/providers/post/buy_product_provider.dart';
 import 'package:digital_sport/providers/post/buy_ticket_provider.dart';
 import 'package:digital_sport/widgets/widget_loading.dart';
@@ -23,6 +24,7 @@ class _DetailEventPageState extends State<DetailEventPage> {
   void initState() {
     super.initState();
     context.read<EventsProvider>().detailEvent(id: widget.id);
+    context.read<DataUserProvider>().userData(context);
   }
 
   Widget _headers(BuildContext context) {
@@ -63,8 +65,8 @@ class _DetailEventPageState extends State<DetailEventPage> {
   }
 
   Widget _bottomNavigationBar() {
-    return Consumer2<BuyTicketProvider, EventsProvider>(
-        builder: (context, buyTicket, dataDetail, _) {
+    return Consumer3<BuyTicketProvider, EventsProvider, DataUserProvider>(
+        builder: (context, buyTicket, dataDetail, dataUSer, _) {
       return InkWell(
         onTap: () => context.read<BuyTicketProvider>().buyTicket(context,
             thumbnail: dataDetail.dataDetail.thumbnail,
@@ -73,7 +75,8 @@ class _DetailEventPageState extends State<DetailEventPage> {
             date: dataDetail.dataDetail.date,
             totalPrice: buyTicket.countTicket == 1
                 ? dataDetail.dataDetail.price
-                : buyTicket.totalPrice),
+                : buyTicket.totalPrice,
+            statusUser: dataUSer.dataProfile.status),
         child: Container(
           height: 60,
           alignment: Alignment.center,

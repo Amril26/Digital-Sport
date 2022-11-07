@@ -3,6 +3,7 @@ import 'package:digital_sport/helpers/layout_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
 import 'package:digital_sport/providers/get/data_products_provider.dart';
 import 'package:digital_sport/providers/post/buy_product_provider.dart';
+import 'package:digital_sport/providers/post/setun_favotire_providers.dart';
 import 'package:digital_sport/widgets/widget_button_primary.dart';
 import 'package:digital_sport/widgets/widget_loading.dart';
 import 'package:flutter/material.dart';
@@ -241,7 +242,15 @@ class _DetailProductPageState extends State<DetailProductPage> {
                     children: [
                       IconButton(
                           padding: EdgeInsets.zero,
-                          onPressed: () {},
+                          onPressed: () => context
+                              .read<SetUnSetFavoriteProviders>()
+                              .setUnSetFavorite(
+                                context,
+                                image: dataDetail.detailProduct.image[0],
+                                title: dataDetail.detailProduct.title,
+                                price: dataDetail.detailProduct.price,
+                                id: dataDetail.detailProduct.id,
+                              ),
                           icon: Container(
                             height: 50,
                             width: 50,

@@ -1,9 +1,18 @@
 import 'package:digital_sport/helpers/color_style.dart';
 import 'package:digital_sport/helpers/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CardHistoryEvent extends StatelessWidget {
-  const CardHistoryEvent({Key? key}) : super(key: key);
+  final String title, location, countTicket, date, thumbnail;
+  const CardHistoryEvent(
+      {Key? key,
+      required this.title,
+      required this.location,
+      required this.countTicket,
+      required this.date,
+      required this.thumbnail})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,17 +22,15 @@ class CardHistoryEvent extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            SizedBox(
               height: MediaQuery.of(context).size.width * 0.25,
               width: MediaQuery.of(context).size.width * 0.25,
-              decoration: BoxDecoration(
-                color: ColorApp.colorPrimary.withOpacity(0.30),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Image.asset(
-                'assets/product1.png',
-                fit: BoxFit.contain,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  thumbnail,
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
             const SizedBox(
@@ -35,7 +42,7 @@ class CardHistoryEvent extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Persebaya vs Persib'.toUpperCase(),
+                    title.toUpperCase(),
                     maxLines: 1,
                     style: TextSetting.p2.copyWith(
                       color: ColorApp.txColorPrimary,
@@ -56,12 +63,14 @@ class CardHistoryEvent extends StatelessWidget {
                       const SizedBox(
                         width: 4,
                       ),
-                      Text(
-                        'Gelora Bung Tomo, Surabaya',
-                        maxLines: 1,
-                        style: TextSetting.d1.copyWith(
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.w400,
+                      Expanded(
+                        child: Text(
+                          location,
+                          maxLines: 1,
+                          style: TextSetting.d1.copyWith(
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ],
@@ -76,7 +85,7 @@ class CardHistoryEvent extends StatelessWidget {
                       width: 4,
                     ),
                     Text(
-                      'Tiket (2)',
+                      'Tiket ($countTicket)',
                       maxLines: 1,
                       style: TextSetting.d1.copyWith(
                         letterSpacing: 1,
@@ -91,7 +100,9 @@ class CardHistoryEvent extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          '11 Sep 2022, 15:45 ',
+                          DateFormat('dd MMMM yyyy, HH:mm')
+                              .format(DateTime.parse(date))
+                              .toString(),
                           maxLines: 1,
                           style: TextSetting.d1.copyWith(
                             letterSpacing: 1,

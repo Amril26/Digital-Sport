@@ -8,7 +8,9 @@ import 'package:digital_sport/pages/ticket/ticket_page.dart';
 import 'package:digital_sport/pages/wrapper_pages.dart';
 import 'package:digital_sport/providers/auth_provider/auth_providers.dart';
 import 'package:digital_sport/providers/get/data_events_providers.dart';
+import 'package:digital_sport/providers/get/data_myticket_provider.dart';
 import 'package:digital_sport/providers/post/buy_product_provider.dart';
+import 'package:digital_sport/providers/post/buy_ticket_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,6 +42,10 @@ class MyApp extends StatelessWidget {
             create: ((context) => DataUserProvider())),
         ChangeNotifierProvider<BuyProductProvider>(
             create: ((context) => BuyProductProvider())),
+        ChangeNotifierProvider<BuyTicketProvider>(
+            create: ((context) => BuyTicketProvider())),
+        ChangeNotifierProvider<DataMyTicketProviders>(
+            create: ((context) => DataMyTicketProviders())),
       ],
       builder: (context, child) {
         return StreamProvider.value(

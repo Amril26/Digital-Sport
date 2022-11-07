@@ -74,16 +74,20 @@ class CardEvent extends StatelessWidget {
                     const SizedBox(
                       width: 4,
                     ),
-                    Text(
-                      location,
-                      maxLines: 1,
-                      style: TextSetting.p2.copyWith(
-                        letterSpacing: 1,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
+                    Expanded(
+                      child: Text(
+                        location,
+                        style: TextSetting.p2.copyWith(
+                          letterSpacing: 1,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ],
+                ),
+                const SizedBox(
+                  width: 4,
                 ),
                 Row(children: [
                   Image.asset(
